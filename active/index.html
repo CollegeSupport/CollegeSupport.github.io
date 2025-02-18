@@ -2,7 +2,7 @@
 <html>
    <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>LupineVault - Free Web Browser - School Safe & 100% Teacher Approved!</title>
+      <title>SpaceHub - Free Web Browser - School Safe & 100% Teacher Approved!</title>
       <!--<link rel="stylesheet" href="../../assets/styles/css/global.min.css">-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -14,13 +14,121 @@
       <link rel="stylesheet" href="../assets/font-awesome/css/all.css">
       <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+      <!-- Space Navbar Section -->
+<div class="space-navbar">
+  <div class="navbar">
+    <div class="logo">Space Hub</div>
+    <ul class="nav-links">
+      <li><a href="#games">Games</a></li>
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#settings">Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- You can place any additional content here -->
+  <div class="content">
+    <h1>Welcome to the Space Hub</h1>
+  </div>
+</div>
+
+<!-- Add this to your CSS -->
+<style>
+  /* General reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Body background and font (applied only to the space navbar) */
+  .space-navbar {
+    font-family: Arial, sans-serif;
+    background: url('https://source.unsplash.com/1600x900/?space,stars') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+  }
+
+  /* Navigation Bar Styling */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    position: fixed; /* Fix navbar to the top */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure navbar stays above content */
+  }
+
+  .navbar .logo {
+    font-size: 2.5rem;
+    color: #9b59b6; /* Nebula purple */
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(155, 89, 182, 0.8), 0 0 20px rgba(155, 89, 182, 0.6);
+  }
+
+  .nav-links {
+    list-style-type: none;
+    display: flex;
+    gap: 30px;
+  }
+
+  .nav-links li {
+    font-size: 1.2rem;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #9b59b6; /* Nebula purple */
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+
+  .nav-links a:hover {
+    color: #9b59b6; /* Nebula purple */
+  }
+
+  .nav-links a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  /* Content section adjustment (only applies to space-themed navbar section) */
+  .content {
+    height: 100vh;
+    padding-top: 80px; /* Ensure the content is not hidden behind the navbar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
    </head>
    <body>
       
       
       <canvas id="canvas"></canvas>
       <div id="header">
-         <img src="Title.png" alt="Logo" id="bigTitle">
+         <img src="" alt="Logo" id="bigTitle">
       </div>
       <div id="content">
          
