@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>SpaceHub - Free Web Browser - School Safe & 100% Teacher Approved!</title>
+      <!--<link rel="stylesheet" href="../../assets/styles/css/global.min.css">-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <link rel="stylesheet" href="index.css">
+      <link rel="icon" type="image/x-icon" href="logo.png">
+      
+      <link rel="shortcut icon" type="image/jpg" href="logo.png"/>
+      
+      <link rel="stylesheet" href="../assets/font-awesome/css/all.css">
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Hub Navigation Bar</title>
+  <style>
+    /* General reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    /* Body background and font (applied only to the space navbar) */
+    .space-navbar {
+      font-family: Arial, sans-serif;
+      background: url('https://source.unsplash.com/1600x900/?space,stars') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    /* Navigation Bar Styling */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+      position: fixed; /* Fix navbar to the top */
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000; /* Ensure navbar stays above content */
+    }
+
+    .navbar .logo {
+      font-size: 2.5rem;
+      color: #9b59b6; /* Nebula purple */
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(155, 89, 182, 0.8), 0 0 20px rgba(155, 89, 182, 0.6);
+    }
+
+    .nav-links {
+      list-style-type: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links li {
+      font-size: 1.2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #9b59b6; /* Nebula purple */
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: #9b59b6; /* Nebula purple */
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    /* Content section adjustment (only applies to space-themed navbar section) */
+    .content {
+      height: 100vh;
+      padding-top: 80px; /* Ensure the content is not hidden behind the navbar */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Space Navbar Section -->
+  <div class="space-navbar">
+    <div class="navbar">
+      <div class="logo">Space Hub</div>
+      <ul class="nav-links">
+        <li><a href="#games">Games</a></li>
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#settings">Settings</a></li>
+      </ul>
+    </div>
+
+    <!-- Content Section Below Navbar -->
+    <div class="content">
+      <h1>Welcome to the Space Hub</h1>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+   </head>
+   <body>
+      
+      
+      <canvas id="canvas"></canvas>
+      <div id="header">
+         <img src="" alt="Logo" id="bigTitle">
+      </div>
+      <div id="content">
+         
+         <p>An upkept version of <a href="https://github.com/TheTIW/UV-Static">TIW's UV-Static</a></p>
+
+         <form id="uv-form">
+            <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden"/> 
+            <input id="uv-address" type="text" placeholder="Search Google or type an URL" class="form__input"/>
+          </form>
+           <div id="popularSites">
+                <img src="https://img.icons8.com/?size=100&id=T2CwYFr5ouk6&format=png&color=000000" alt="Xbox" onclick="autofill('http://xbox.com/play')">
+                <img src="https://img.icons8.com/?size=100&id=48137&format=png&color=000000" alt="Now.gg" onclick="autofill('https://now.gg/')">
+                <img src="https://img.icons8.com/?size=100&id=48166&format=png&color=000000" alt="Google" onclick="autofill('https://google.com')">
+                <img src="https://img.icons8.com/?size=100&id=92582&format=png&color=000000" alt="GeForce NOW" onclick="autofill('https://play.geforcenow.com/')">
+                <img src="https://img.icons8.com/?size=100&id=KeTtCQ_b-ZiV&format=png&color=000000" alt="TikTok" onclick="autofill('https://tiktok.com')">
+                <img src="https://img.icons8.com/?size=100&id=52539&format=png&color=000000" alt="GitHub" onclick="autofill('https://github.com')">
+                <img src="https://img.icons8.com/?size=100&id=53013&format=png&color=000000" alt="Twitch" onclick="autofill('https://twitch.tv')">
+               <img src="https://img.icons8.com/?size=100&id=kTuxVYRKeKEY&format=png&color=000000" alt="ChatGPT" onclick="autofill('https://chatgpt.com')">
+            </div>
+            <a href="https://discord.gg/Dybpe2uWfZ" target="_blank" class="fa-brands fa-discord"></a>
+            <a href="https://github.com/tf7software/UV-Static" target="_blank"class="fa-brands fa-github"></a>
+            <a href="https://lupinevault.com/TIW/" target="_blank"class="fa-solid fa-cloud"></a>
+          <div class="desc left-margin">
+            <p id="uv-error"></p>
+            <pre id="uv-error-code"></pre>
+          </div>
+        
+      </div>
+      <script src="stars.js"></script>
+      
+      <script src="uv/uv.bundle.js" charset="UTF-8" defer></script>
+      <script src="uv/uv.config.js" charset="UTF-8" defer></script>
+      <script src="register-sw.js" charset="UTF-8" defer></script>
+      <script src="search.js" charset="UTF-8" defer></script>
+      <script src="index.js" charset="UTF-8" defer></script>
+      <div id="footer">
+         <footer>© tf7software, <a href="https://rhw.one/">rhw.one</a> - <a href="https://lupinevault.com/privacy-policy.html">Privacy Policy</a> - By Using LV/UV Static Proxy You Agree To Our <a href="https://lupinevault.com/tos.html">Terms of Service</a></footer>
+      </div>
+   </body>
+</html>
