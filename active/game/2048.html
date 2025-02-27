@@ -1,1 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh; /* Full viewport height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    iframe {
+      width: 1200px;
+      height: 800px; calc(100vh - 80px); /* Adjusts height to leave space for the button container */
+      border: none;
+    }
+
+    .button-container {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      background-color: black;
+      padding: 15px;
+      border-radius: 10px;
+      z-index: 2;
+      transition: opacity 0.3s ease;
+    }
+
+    .fullscreen-button {
+      padding: 15px 30px;
+      background-color: #333;
+      color: #6a1b9a;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 5px #6a1b9a;
+    }
+
+    .fullscreen-button:hover {
+      background-color: #f0f0f0;
+      box-shadow: 0 0 15px 5px #6a1b9a;
+    }
+
+    .fullscreen-button:active {
+      background-color: #ccc;
+    }
+
+    .fullscreen-button span {
+      text-shadow: 0 0 10px #6a1b9a, 0 0 20px #6a1b9a;
+    }
+
+    .game-description {
+      color: white;
+      font-family: 'Jua', sans-serif;
+      font-size: 20px;
+      margin-left: 20px;
+      max-width: 400px;
+      text-align: left;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="container">
+    <iframe src="2048"id="embed"></iframe>
+    <div class="button-container" id="buttonContainer">
+      <button class="fullscreen-button" id="fullscreenBtn"><span>Fullscreen</span></button>
+      <div class="game-description">
+        <p>a hard challenge try to get to 2048!</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const buttonContainer = document.getElementById('buttonContainer');
+    const container = document.getElementById('container');
+
+    fullscreenBtn.addEventListener('click', function () {
+      if (!document.fullscreenElement) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) { 
+          container.webkitRequestFullscreen(); // Safari support
+        } else if (container.msRequestFullscreen) { 
+          container.msRequestFullscreen(); // IE support
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    });
+
+    document.addEventListener('fullscreenchange', function () {
+      if (document.fullscreenElement) {
+        buttonContainer.style.opacity = 0;
+      } else {
+        buttonContainer.style.opacity = 1;
+      }
+    });
+  </script>
+  
+</body>
+</html>
