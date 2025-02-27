@@ -6,44 +6,48 @@
   <title>space hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background-color: black; /* Background set to black */
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: black; /* Entire background set to black */
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       flex-direction: column;
     }
 
     .container {
-      position: relative;
-      background-color: #fff;
-      border: 2px solid #ccc;
-      width: 80%;
-      max-width: 800px;
-      height: 400px;
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
     }
 
     iframe {
       width: 100%;
       height: 100%;
       border: none;
+      z-index: -1; /* Ensures iframe stays behind the buttons and content */
     }
 
     .button-container {
       display: flex;
       align-items: center;
-      margin-top: 20px;
-      background-color: black; /* Set the button section background to black */
-      padding: 15px;
-      border-radius: 10px; /* Optional rounded corners */
+      background-color: black; /* Button section background is black */
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      justify-content: center;
+      z-index: 1; /* Ensures buttons are on top */
+      transition: opacity 0.3s ease; /* Smooth fade out/in */
     }
 
     .fullscreen-button {
@@ -84,7 +88,13 @@
     }
 
     .fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background-color: black;
+      z-index: 999; /* Ensures everything stays on top in fullscreen */
     }
   </style>
 </head>
@@ -92,28 +102,38 @@
 
   <div class="container" id="container">
     <iframe src="https://classroom6x.gitlab.io/basketball-stars" id="embed"></iframe>
-    <div class="button-container">
+    <div class="button-container" id="buttonContainer">
       <button class="fullscreen-button" id="fullscreenBtn"><span>Fullscreen</span></button>
       <div class="game-description">
-        <p>a fun 2 player or 1 player basketball game to play with your friends or alone! </p>
+        <p>A fun basket ball game to play with friends or alone!</p>
       </div>
     </div>
   </div>
 
   <script>
     const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const buttonContainer = document.getElementById('buttonContainer');
     const container = document.getElementById('container');
     const embed = document.getElementById('embed');
 
     fullscreenBtn.addEventListener('click', function() {
       if (!document.fullscreenElement) {
-        container.requestFullscreen();
-        document.body.classList.add('fullscreen');
+        container.requestFullscreen(); // Request fullscreen for the entire container
       } else {
         if (document.exitFullscreen) {
           document.exitFullscreen();
-          document.body.classList.remove('fullscreen');
         }
+      }
+    });
+
+    // Listen for when the fullscreen mode changes
+    document.addEventListener('fullscreenchange', function() {
+      if (document.fullscreenElement) {
+        // Hide button container when fullscreen is active
+        buttonContainer.style.opacity = 0;
+      } else {
+        // Show button container when exiting fullscreen
+        buttonContainer.style.opacity = 1;
       }
     });
   </script>
