@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>space hub</title>
+  <title>Space Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <style>
     * {
@@ -15,7 +15,7 @@
     body, html {
       height: 100%;
       font-family: Arial, sans-serif;
-      background-color: black; /* Entire background set to black */
+      background-color: black;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,77 +24,69 @@
 
     .container {
       width: 100%;
-      height: 100%;
+      height: 100vh; /* Full viewport height */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      position: relative;
     }
 
     iframe {
       width: 100%;
-      height: 100%;
+      height: calc(100vh - 80px); /* Adjusts height to leave space for the button container */
       border: none;
-      z-index: -1; /* Ensures iframe stays behind the buttons and content */
     }
 
     .button-container {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       align-items: center;
-      background-color: black; /* Button section background is black */
-      padding: 20px;
+      background-color: black;
+      padding: 15px;
       border-radius: 10px;
-      width: 100%;
-      justify-content: center;
-      z-index: 1; /* Ensures buttons are on top */
-      transition: opacity 0.3s ease; /* Smooth fade out/in */
+      z-index: 2;
+      transition: opacity 0.3s ease;
     }
 
     .fullscreen-button {
       padding: 15px 30px;
-      background-color: #333; /* Default gray color */
-      color: #6a1b9a; /* Nebula purple text */
+      background-color: #333;
+      color: #6a1b9a;
       border: none;
       cursor: pointer;
       font-size: 18px;
-      border-radius: 25px; /* Round corners */
+      border-radius: 25px;
       transition: all 0.3s ease;
-      box-shadow: 0 0 5px #6a1b9a; /* Glowing effect */
+      box-shadow: 0 0 5px #6a1b9a;
     }
 
     .fullscreen-button:hover {
-      background-color: #f0f0f0; /* Light gray background on hover */
-      box-shadow: 0 0 15px 5px #6a1b9a; /* Neon purple glow around the button */
+      background-color: #f0f0f0;
+      box-shadow: 0 0 15px 5px #6a1b9a;
     }
 
     .fullscreen-button:active {
-      background-color: #ccc; /* Darker gray on click */
+      background-color: #ccc;
     }
 
     .fullscreen-button span {
-      text-shadow: 0 0 10px #6a1b9a, 0 0 20px #6a1b9a; /* Glowing text */
+      text-shadow: 0 0 10px #6a1b9a, 0 0 20px #6a1b9a;
     }
 
     .game-description {
-      color: white; /* White text */
+      color: white;
       font-family: 'Jua', sans-serif;
       font-size: 20px;
-      margin-left: 20px; /* Space between the button and text */
+      margin-left: 20px;
       max-width: 400px;
       text-align: left;
-      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for the description */
-      padding: 15px; /* Some padding around the text */
-      border-radius: 10px; /* Optional rounded corners for the description box */
-    }
-
-    .fullscreen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: black;
-      z-index: 999; /* Ensures everything stays on top in fullscreen */
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -105,7 +97,7 @@
     <div class="button-container" id="buttonContainer">
       <button class="fullscreen-button" id="fullscreenBtn"><span>Fullscreen</span></button>
       <div class="game-description">
-        <p>A fun basket ball game to play with friends or alone!</p>
+        <p>A fun basketball game to play with friends or alone!</p>
       </div>
     </div>
   </div>
@@ -114,11 +106,16 @@
     const fullscreenBtn = document.getElementById('fullscreenBtn');
     const buttonContainer = document.getElementById('buttonContainer');
     const container = document.getElementById('container');
-    const embed = document.getElementById('embed');
 
-    fullscreenBtn.addEventListener('click', function() {
+    fullscreenBtn.addEventListener('click', function () {
       if (!document.fullscreenElement) {
-        container.requestFullscreen(); // Request fullscreen for the entire container
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) { 
+          container.webkitRequestFullscreen(); // Safari support
+        } else if (container.msRequestFullscreen) { 
+          container.msRequestFullscreen(); // IE support
+        }
       } else {
         if (document.exitFullscreen) {
           document.exitFullscreen();
@@ -126,13 +123,10 @@
       }
     });
 
-    // Listen for when the fullscreen mode changes
-    document.addEventListener('fullscreenchange', function() {
+    document.addEventListener('fullscreenchange', function () {
       if (document.fullscreenElement) {
-        // Hide button container when fullscreen is active
         buttonContainer.style.opacity = 0;
       } else {
-        // Show button container when exiting fullscreen
         buttonContainer.style.opacity = 1;
       }
     });
