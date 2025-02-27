@@ -3,27 +3,120 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>spaceHub</title>
+  <title>space hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <style>
-    /* Ensure body and html have no margin and fill the screen */
-    html, body {
+    body {
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      height: 100%;
-      width: 100%;
+      background-color: black; /* Background set to black */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
     }
 
-    /* Make the iframe take the full size of the viewport */
+    .container {
+      position: relative;
+      background-color: #fff;
+      border: 2px solid #ccc;
+      width: 80%;
+      max-width: 800px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
     iframe {
       width: 100%;
-      height: 100vh; /* Full height of the viewport */
-      border: none; /* Remove border */
+      height: 100%;
+      border: none;
+    }
+
+    .button-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      background-color: black; /* Set the button section background to black */
+      padding: 15px;
+      border-radius: 10px; /* Optional rounded corners */
+    }
+
+    .fullscreen-button {
+      padding: 15px 30px;
+      background-color: #333; /* Default gray color */
+      color: #6a1b9a; /* Nebula purple text */
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 25px; /* Round corners */
+      transition: all 0.3s ease;
+      box-shadow: 0 0 5px #6a1b9a; /* Glowing effect */
+    }
+
+    .fullscreen-button:hover {
+      background-color: #f0f0f0; /* Light gray background on hover */
+      box-shadow: 0 0 15px 5px #6a1b9a; /* Neon purple glow around the button */
+    }
+
+    .fullscreen-button:active {
+      background-color: #ccc; /* Darker gray on click */
+    }
+
+    .fullscreen-button span {
+      text-shadow: 0 0 10px #6a1b9a, 0 0 20px #6a1b9a; /* Glowing text */
+    }
+
+    .game-description {
+      color: white; /* White text */
+      font-family: 'Jua', sans-serif;
+      font-size: 20px;
+      margin-left: 20px; /* Space between the button and text */
+      max-width: 400px;
+      text-align: left;
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for the description */
+      padding: 15px; /* Some padding around the text */
+      border-radius: 10px; /* Optional rounded corners for the description box */
+    }
+
+    .fullscreen {
+      background-color: black;
     }
   </style>
 </head>
 <body>
 
-  <iframe src="https://classroom6x.gitlab.io/basketball-stars/"></iframe>
+  <div class="container" id="container">
+    <iframe src="https://www.example.com" id="embed"></iframe>
+    <div class="button-container">
+      <button class="fullscreen-button" id="fullscreenBtn"><span>Fullscreen</span></button>
+      <div class="game-description">
+        <p>a fun 2 player or 1 player basketball game to play with your friends or alone! </p>
+      </div>
+    </div>
+  </div>
 
+  <script>
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const container = document.getElementById('container');
+    const embed = document.getElementById('embed');
+
+    fullscreenBtn.addEventListener('click', function() {
+      if (!document.fullscreenElement) {
+        container.requestFullscreen();
+        document.body.classList.add('fullscreen');
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          document.body.classList.remove('fullscreen');
+        }
+      }
+    });
+  </script>
+  
 </body>
 </html>
