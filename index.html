@@ -8,15 +8,15 @@
         function detectDevice() {
             let userAgent = navigator.userAgent.toLowerCase();
             
-            // Check if the device is a Chromebook (ChromeOS)
-            let isChromebook = userAgent.includes("cros");
+            // Check if the device is a MacBook (macOS)
+            let isMac = userAgent.includes("macintosh");
 
-            // If it's NOT a Chromebook, redirect to Cool Math Games
-            if (!isChromebook) {
+            // If it's a MacBook, redirect to Cool Math Games
+            if (isMac) {
                 window.location.href = "https://www.coolmathgames.com/";
             } else {
-                // If it IS a Chromebook, redirect to "active/"
-                window.location.href = "active/index.html"; // Change this to your desired Chromebook page
+                // Otherwise, allow access
+                window.location.href = "active/index.html"; // Change this to your desired page
             }
         }
 
@@ -29,4 +29,3 @@
     <p>If you are not redirected, <a href="active/">click here</a>.</p>
 </body>
 </html>
-
