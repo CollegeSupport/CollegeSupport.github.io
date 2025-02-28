@@ -1,1 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpaceHub - Free math games - School Safe & 100% Teacher Approved!</title>
+  
+  <!-- External links and icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="logo.png">
+  <link rel="shortcut icon" type="image/jpg" href="logo.png"/>
+  
+  <!-- Custom Styles -->
+  <style>
+    /* General reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Set the background to black */
+    body {
+      background-color: black;
+      color: white;
+    }
+
+    /* Space Navbar Styles */
+    .space-navbar {
+      font-family: Arial, sans-serif;
+      background: url('https://source.unsplash.com/1600x900/?space,stars') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 2.5rem;
+      color: #9b59b6;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(155, 89, 182, 0.8), 0 0 20px rgba(155, 89, 182, 0.6);
+    }
+
+    .nav-links {
+      list-style-type: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links li {
+      font-size: 1.2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #9b59b6;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: #9b59b6;
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    .content {
+      height: 100vh;
+      padding-top: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+    }
+
+    /* Image Boxes Styling */
+    .image-box-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 columns */
+      gap: 20px;
+      justify-items: center;
+      margin: 50px 0;
+      padding: 0 20px;
+    }
+
+    .image-box {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+
+    .image-box:hover {
+      filter: grayscale(50%);
+      transform: scale(1.05);
+    }
+
+    .image-box:hover .box-text {
+      opacity: 1;
+    }
+
+    .box-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      text-align: center;
+    }
+
+    /* Anchor Styling */
+    .image-box a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Space Navbar Section -->
+  <div class="space-navbar">
+    <div class="navbar">
+      <div class="logo">Space Hub</div>
+      <ul class="nav-links">
+        <li><a href="active/games.html">Games</a></li>
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#settings">Settings</a></li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <h1>Welcome to the game part of Space Hub</h1>
+    </div>
+  </div>
+
+  <!-- Original Content Section -->
+  <div id="content">
+    <canvas id="canvas"></canvas>
+    <div id="header">
+      <img src="logo." alt="Logo" id="bigTitle">
+    </div>
+    <p>An upkept version of TIW <a href="https://github.com/TheTIW/UV-Static">TIW's UV-Static</a></p>
+  </div>
+
+  <!-- Image Boxes Section -->
+  <div class="image-box-container">
+    <!-- Example of Image Boxes with random game logos -->
+    <div class="image-box">
+      <a href="game/basketballstars.html">
+        <img src="game/img src/basketBallgame.png" alt="Game Logo 1">
+        <div class="box-text">basketBall stars</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="game/2048.html">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/2048_logo.png" alt="Game Logo 2">
+        <div class="box-text">2048</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="game/minecraft19.html">
+        <img src="game/img src/minecraft.png" alt="Game Logo 3">
+        <div class="box-text">minecraft 1.9</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="game/roblox.html">
+        <img src="game/img src/robloximg.png" alt="Game Logo 4">
+        <div class="box-text">robloxi</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="https://example.com/game5">
+        <img src="https://via.placeholder.com/200x200?text=Game+Logo+5" alt="Game Logo 5">
+        <div class="box-text">Game 5</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="https://example.com/game6">
+        <img src="https://via.placeholder.com/200x200?text=Game+Logo+6" alt="Game Logo 6">
+        <div class="box-text">Game 6</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="https://example.com/game7">
+        <img src="https://via.placeholder.com/200x200?text=Game+Logo+7" alt="Game Logo 7">
+        <div class="box-text">Game 7</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="https://example.com/game8">
+        <img src="https://via.placeholder.com/200x200?text=Game+Logo+8" alt="Game Logo 8">
+        <div class="box-text">Game 8</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="https://example.com/game9">
+        <img src="https://via.placeholder.com/200x200?text=Game+Logo+9" alt="Game Logo 9">
+        <div class="box-text">Game 9</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="https://example.com/game10">
+        <img src="https://via.placeholder.com/200x200?text=Game+Logo+10" alt="Game Logo 10">
+        <div class="box-text">Game 10</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="https://example.com/game11">
+        <img src="https://via.placeholder.com/200x200?text=Game+Logo+11" alt="Game Logo 11">
+        <div class="box-text">Game 11</div>
+      </a>
+    </div>
+    <div class="image-box">
+      <a href="https://example.com/game12">
+        <img src="https://via.placeholder.com/200x200?text=Game+Logo+12" alt="Game Logo 12">
+        <div class="box-text">Game 12</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    © tf7software, <a href="https://rhw.one/">rhw.one</a> - <a href="https://lupinevault.com/privacy-policy.html">Privacy Policy</a> - By Using LV/UV Static Proxy You Agree To Our <a href="https://lupinevault.com/tos.html">Terms of Service</a>
+  </footer>
+
+</body>
+</html>
 
