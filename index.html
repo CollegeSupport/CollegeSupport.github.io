@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,9 +10,9 @@
     <script>
         function detectDevice() {
             let userAgent = navigator.userAgent.toLowerCase();
-
+            
             // Check if the device is a Chromebook (ChromeOS)
-            let isChromebook = /cros/.test(userAgent);
+            let isChromebook = userAgent.includes("cros");
 
             // If it's NOT a Chromebook, redirect to Cool Math Games
             if (!isChromebook) {
@@ -20,7 +20,7 @@
             }
         }
 
-        // Run the function on page load
+        // Run the function when the page loads
         window.onload = detectDevice;
     </script>
 </head>
@@ -29,6 +29,7 @@
     <p>If you're seeing this, you're on a Chromebook.</p>
 </body>
 </html>
+
 
   <title>Redirect Page</title>
   <script>
