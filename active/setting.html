@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpaceHub - Free math games - School Safe & 100% Teacher Approved!</title>
+  
+  <!-- External links and icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+  <link rel="icon" id="favicon" type="image/x-icon" href="logo.png">
+  <link rel="shortcut icon" type="image/jpg" href="logo.png"/>
+  
+  <!-- Custom Styles -->
+  <style>
+    /* General reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Set the background to black */
+    body {
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    /* Sidebar for renaming tab */
+    .sidebar {
+      position: fixed;
+      left: 10px;
+      top: 100px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .sidebar label, .sidebar input {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .sidebar input {
+      width: 200px;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    /* Space Navbar Styles */
+    .space-navbar {
+      font-family: Arial, sans-serif;
+      background: url('https://source.unsplash.com/1600x900/?space,stars') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      flex-grow: 1;
+      margin-left: 250px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 2.5rem;
+      color: #9b59b6;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(155, 89, 182, 0.8), 0 0 20px rgba(155, 89, 182, 0.6);
+    }
+
+    .nav-links {
+      list-style-type: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links li {
+      font-size: 1.2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: #9b59b6;
+    }
+
+    /* Center box styles for 'open in about:blank' */
+    .open-box {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 200px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .open-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .open-box p {
+      font-size: 1rem;
+      color: #9b59b6;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar for tab renaming -->
+  <div class="sidebar">
+    <label for="tabName">Rename Tab:</label>
+    <input type="text" id="tabName" placeholder="Put the name of the tab">
+    
+    <label for="tabIcon">Tab Icon URL:</label>
+    <input type="text" id="tabIcon" placeholder="Put image URL">
+  </div>
+
+  <!-- Space Navbar Section -->
+  <div class="space-navbar">
+    <div class="navbar">
+      <div class="logo">Space Hub</div>
+      <ul class="nav-links">
+        <li><a href="active/games.html">Games</a></li>
+        <li><a href="#apps">Apps</a></li>
+        <li><a href="#settings">Settings</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Open in About:Blank Section -->
+  <div class="open-box" onclick="openInBlank()">
+    <h3>Open in About: Blank</h3>
+    <p>Click me</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Load saved values when the page loads
+      if (localStorage.getItem("tabName")) {
+        document.title = localStorage.getItem("tabName");
+        document.getElementById("tabName").value = localStorage.getItem("tabName");
+      }
+
+      if (localStorage.getItem("tabIcon")) {
+        let favicon = document.getElementById("favicon");
+        if (!favicon) {
+          favicon = document.createElement("link");
+          favicon.id = "favicon";
+          favicon.rel = "icon";
+          document.head.appendChild(favicon);
+        }
+        favicon.href = localStorage.getItem("tabIcon");
+        document.getElementById("tabIcon").value = localStorage.getItem("tabIcon");
+      }
+
+      // Event listeners to update and save tab name
+      document.getElementById("tabName").addEventListener("input", function () {
+        document.title = this.value;
+        localStorage.setItem("tabName", this.value);
+      });
+
+      // Event listeners to update and save tab icon
+      document.getElementById("tabIcon").addEventListener("input", function () {
+        let favicon = document.getElementById("favicon");
+        if (!favicon) {
+          favicon = document.createElement("link");
+          favicon.id = "favicon";
+          favicon.rel = "icon";
+          document.head.appendChild(favicon);
+        }
+        favicon.href = this.value;
+        localStorage.setItem("tabIcon", this.value);
+      });
+    });
+
+    // Function to open iframe in about:blank
+    function openInBlank() {
+      const newWindow = window.open('about:blank', '_blank');
+      newWindow.document.write('<html><body style="margin: 0; padding: 0;"><iframe src="' + window.location.href + '" style="width: 100%; height: 100%; border: none;"></iframe></body></html>');
+      newWindow.document.close();
+    }
+  </script>
+
+</body>
+</html>
