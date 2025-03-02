@@ -39,6 +39,8 @@
       background: rgba(255, 255, 255, 0.1);
       padding: 15px;
       border-radius: 10px;
+      display: flex;
+      flex-direction: column;
     }
 
     .sidebar label, .sidebar input {
@@ -51,6 +53,34 @@
       padding: 5px;
       border-radius: 5px;
       border: none;
+    }
+
+    /* Open in About:Blank section */
+    .open-box {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 200px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      margin-left: 20px;
+    }
+
+    .open-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .open-box p {
+      font-size: 1rem;
+      color: #9b59b6;
+    }
+
+    /* Align sidebar and open-box side by side */
+    .sidebar-container {
+      display: flex;
+      align-items: flex-start;
     }
 
     /* Space Navbar Styles */
@@ -107,39 +137,25 @@
     .nav-links a:hover {
       color: #9b59b6;
     }
-
-    /* Center box styles for 'open in about:blank' */
-    .open-box {
-      text-align: center;
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 200px;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-
-    .open-box h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-
-    .open-box p {
-      font-size: 1rem;
-      color: #9b59b6;
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- Sidebar for tab renaming -->
-  <div class="sidebar">
-    <label for="tabName">Rename Tab:</label>
-    <input type="text" id="tabName" placeholder="Put the name of the tab">
-    
-    <label for="tabIcon">Tab Icon URL:</label>
-    <input type="text" id="tabIcon" placeholder="Put image URL">
+  <div class="sidebar-container">
+    <!-- Sidebar for tab renaming and favicon change -->
+    <div class="sidebar">
+      <label for="tabName">Rename Tab:</label>
+      <input type="text" id="tabName" placeholder="Enter tab name">
+      
+      <label for="tabIcon">Tab Icon URL:</label>
+      <input type="text" id="tabIcon" placeholder="Paste image URL">
+    </div>
+
+    <!-- Open in About:Blank Section -->
+    <div class="open-box" onclick="openInBlank()">
+      <h3>Open in About: Blank</h3>
+      <p>Click me</p>
+    </div>
   </div>
 
   <!-- Space Navbar Section -->
@@ -147,64 +163,58 @@
     <div class="navbar">
       <div class="logo">Space Hub</div>
       <ul class="nav-links">
-        <li><a href="active/games.html">Games</a></li>
-        <li><a href="#apps">Apps</a></li>
-        <li><a href="#settings">Settings</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="app.html">Apps</a></li>
+        <li><a href="setting.html">Settings</a></li>
       </ul>
     </div>
   </div>
 
-  <!-- Open in About:Blank Section -->
-  <div class="open-box" onclick="openInBlank()">
-    <h3>Open in About: Blank</h3>
-    <p>Click me</p>
-  </div>
-
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Load saved values when the page loads
-      if (localStorage.getItem("tabName")) {
-        document.title = localStorage.getItem("tabName");
-        document.getElementById("tabName").value = localStorage.getItem("tabName");
-      }
-
-      if (localStorage.getItem("tabIcon")) {
-        let favicon = document.getElementById("favicon");
-        if (!favicon) {
-          favicon = document.createElement("link");
-          favicon.id = "favicon";
-          favicon.rel = "icon";
-          document.head.appendChild(favicon);
+        // Load saved values when the page loads
+        if (localStorage.getItem("tabName")) {
+            document.title = localStorage.getItem("tabName");
+            document.getElementById("tabName").value = localStorage.getItem("tabName");
         }
-        favicon.href = localStorage.getItem("tabIcon");
-        document.getElementById("tabIcon").value = localStorage.getItem("tabIcon");
-      }
 
-      // Event listeners to update and save tab name
-      document.getElementById("tabName").addEventListener("input", function () {
-        document.title = this.value;
-        localStorage.setItem("tabName", this.value);
-      });
-
-      // Event listeners to update and save tab icon
-      document.getElementById("tabIcon").addEventListener("input", function () {
-        let favicon = document.getElementById("favicon");
-        if (!favicon) {
-          favicon = document.createElement("link");
-          favicon.id = "favicon";
-          favicon.rel = "icon";
-          document.head.appendChild(favicon);
+        if (localStorage.getItem("tabIcon")) {
+            updateFavicon(localStorage.getItem("tabIcon"));
+            document.getElementById("tabIcon").value = localStorage.getItem("tabIcon");
         }
-        favicon.href = this.value;
-        localStorage.setItem("tabIcon", this.value);
-      });
+
+        // Event listener for tab name change
+        document.getElementById("tabName").addEventListener("input", function () {
+            document.title = this.value;
+            localStorage.setItem("tabName", this.value);
+        });
+
+        // Event listener for favicon change
+        document.getElementById("tabIcon").addEventListener("input", function () {
+            const faviconURL = this.value;
+            updateFavicon(faviconURL);
+            localStorage.setItem("tabIcon", faviconURL);
+        });
     });
 
-    // Function to open iframe in about:blank
+    // Function to update favicon dynamically
+    function updateFavicon(url) {
+        let favicon = document.querySelector("link[rel~='icon']");
+        
+        if (!favicon) {
+            favicon = document.createElement("link");
+            favicon.rel = "icon";
+            document.head.appendChild(favicon);
+        }
+        
+        favicon.href = url;
+    }
+
+    // Function to open in about:blank
     function openInBlank() {
-      const newWindow = window.open('about:blank', '_blank');
-      newWindow.document.write('<html><body style="margin: 0; padding: 0;"><iframe src="' + window.location.href + '" style="width: 100%; height: 100%; border: none;"></iframe></body></html>');
-      newWindow.document.close();
+        const newWindow = window.open('about:blank', '_blank');
+        newWindow.document.write('<html><body style="margin: 0; padding: 0;"><iframe src="https://collegesupport.github.io" style="width: 100%; height: 100%; border: none;"></iframe></body></html>');
+        newWindow.document.close();
     }
   </script>
 
